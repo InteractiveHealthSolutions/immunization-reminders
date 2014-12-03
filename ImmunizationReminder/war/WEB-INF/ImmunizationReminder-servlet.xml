@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+  <!-- the application context definition for the xoutTB DispatcherServlet -->
+<!--
+	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+  <bean name="/hello.htm" class="ird.xoutTB.web.controller.HelloController"/>
+
+    <bean name="/login.htm" class="ird.xoutTB.web.controller.LoginController"/>
+  -->
+<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	<property name="basename">
+		<value>messages</value>
+	</property>
+</bean>
+<bean id="urlMapAuthenticate" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	<!--<property name="interceptors">
+		<list>
+			<ref bean="httpRequestInterceptor" />
+		</list>
+	</property>	-->
+	<property name="urlMap">
+		<props>
+			<!-- <prop key="/timesheetlist.htm">timesheetListController</prop>-->
+
+			<prop key="/login.htm">LoginController</prop>
+			
+			<prop key="/mainpage.htm">MainPageController</prop>
+				
+			<prop key="/viewVaccines.htm">ViewVaccinesController</prop>	
+			<prop key="/vaccination.htm">VaccinationController</prop>
+			<prop key="/viewVaccinationRecord.htm">ViewVaccinationRecordController</prop>
+			<prop key="/viewVaccinationwindow.htm">ViewVaccinationWindowController</prop>
+			<prop key="/addVaccine.htm">AddVaccineController</prop>
+			<prop key="/updateVaccinationRecord.htm">UpdateVaccinationRecordController</prop>
+			<prop key="/editVaccinationRecord.htm">EditVaccinationRecordController</prop>
+			<prop key="/editVaccine.htm">EditVaccineController</prop>
+
+			<prop key="/exception.htm">ExceptionController</prop>
+			
+			<prop key="/responses.htm">ResponsesController</prop>	
+			<prop key="/viewResponses.htm">ViewResponsesController</prop>
+				
+			<prop key="/reminders.htm">RemindersController</prop>	
+			<prop key="/viewReminders.htm">ViewRemindersController</prop>	
+			<prop key="/editReminder.htm">EditReminderController</prop>	
+			
+			<prop key="/viewReminderSmsRecord.htm">ViewReminderSmsRecordController</prop>	
+			<prop key="/viewReminderSmswindow.htm">ViewReminderSmsWindowController</prop>	
+
+			<prop key="/children.htm">ChildrenController</prop>	
+			<prop key="/addChild.htm">AddChildController</prop>	
+			<prop key="/addChildContinueVaccination.htm">AddChildFlowVaccinationController</prop>
+			<prop key="/viewChildren.htm">ViewChildrenController</prop>	
+			<prop key="/viewChildwindow.htm">ViewChildWindowController</prop>	
+			<prop key="/editChild.htm">EditChildController</prop>	
+			<prop key="/uploadData.htm">UploadDataController</prop>	
+			
+			<prop key="/users.htm">UsersController</prop>	
+			<prop key="/viewUsers.htm">ViewUsersController</prop>	
+			<prop key="/addUser.htm">AddUserController</prop>	
+			<prop key="/editUser.htm">EditUserController</prop>	
+
+			<prop key="/viewRoles.htm">ViewRolesController</prop>	
+			<prop key="/addRole.htm">AddRoleController</prop>	
+			<prop key="/editRole.htm">EditRoleController</prop>	
+
+			<prop key="/reporting.htm">ReportingController</prop>	
+			<prop key="/viewIrsettings.htm">ViewIrSettingsController</prop>	
+			<prop key="/generateCSV.htm">GenerateCSVController</prop>
+			<prop key="/exportData.htm">ExportDataController</prop>
+			<prop key="/systemLogs.htm">SystemLogsController</prop>
+			<prop key="/hibernateStats.htm">HibernateStatisticsController</prop>
+			<prop key="/analyzeReminder.htm">AnalyzeReminderController</prop>
+			<prop key="/viewUploadReport.htm">ViewDetailedUploadReportController</prop>
+			<prop key="viewCsvUploadReport.htm">ViewCsvUploadReportController</prop>
+
+			<prop key="/changepwd.htm">ChangepwdController</prop>	
+
+		</props>
+	</property>
+</bean>
+<bean name="LoginController" class="org.ird.immunizationreminder.web.controller.LoginController">
+	<property name="sessionForm">
+		<value>true</value>
+	</property>
+	<property name="commandName">
+		<value>credentials</value>
+	</property>
+	<property name="commandClass">
+		<value>org.ird.immunizationreminder.web.Credentials</value>
+	</property>
+	<property name="validator">
+		<ref bean="loginValidator"/>
+	</property>
+	<property name="formView">
+		<value>login</value>
+	</property>
+	<property name="successView">
+		<value>mainpage.htm</value>
+	</property>
+</bean>
+	<bean id="loginValidator" class="org.ird.immunizationreminder.web.validator.LoginValidator"/>
+
+<bean name="MainPageController" class="org.ird.immunizationreminder.web.controller.MainPageController"/>
+	
+<bean name="ViewVaccinesController" class="org.ird.immunizationreminder.web.controller.ViewVaccinesController"/>
+<bean name="VaccinationController" class="org.ird.immunizationreminder.web.controller.VaccinationController"/>
+<bean name="ViewVaccinationRecordController" class="org.ird.immunizationreminder.web.controller.ViewVaccinationRecordController"/>
+<bean name="ViewVaccinationWindowController" class="org.ird.immunizationreminder.web.controller.ViewVaccinationWindowController"/>
+<bean name="AddVaccineController" class="org.ird.immunizationreminder.web.controller.AddVaccineController"/>
+<bean name="UpdateVaccinationRecordController" class="org.ird.immunizationreminder.web.controller.UpdateVaccinationRecordController">
+	<property name="sessionForm">
+		<value>true</value>
+	</property>
+	<property name="commandName">
+		<value>command</value>
+	</property>
+	<property name="commandClass">
+		<value>org.ird.immunizationreminder.datamodel.entities.Vaccination</value>
+	</property>
+	<property name="formView">
+		<value>updateVaccinationRecord</value>
+	</property>
+</bean>
+<bean name="EditVaccinationRecordController" class="org.ird.immunizationreminder.web.controller.EditVaccinationRecordController">
+	<property name="sessionForm">
+		<value>true</value>
+	</property>
+	<property name="commandName">
+		<value>command</value>
+	</property>
+	<property name="commandClass">
+		<value>org.ird.immunizationreminder.datamodel.entities.Vaccination</value>
+	</property>
+	<property name="formView">
+		<value>editVaccinationRecord</value>
+	</property>
+</bean>
+<bean name="EditVaccineController" class="org.ird.immunizationreminder.web.controller.EditVaccineController">
+	<property name="sessionForm">
+		<value>true</value>
+	</property>
+	<property name="commandName">
+		<value>command</value>
+	</property>
+	<property name="commandClass">
+		<value>org.ird.immunizationreminder.datamodel.entities.Vaccine</value>
+	</property>
+	<property name="formView">
+		<value>editVaccine</value>
+	</property>
+</bean>
+<bean name="ExceptionController" class="org.ird.immunizationreminder.web.controller.ExceptionController"/>
+
+<bean name="GenerateCSVController" class="org.ird.immunizationreminder.web.controller.GenerateCSVController"/>
+<bean name="ExportDataController" class="org.ird.immunizationreminder.web.controller.ExportDataController"/>
+<bean name="SystemLogsController" class="org.ird.immunizationreminder.web.controller.SystemLogsController"/>
+
+<bean name="ResponsesController" class="org.ird.immunizationreminder.web.controller.ResponsesController"/>
+<bean name="ViewResponsesController" class="org.ird.immunizationreminder.web.controller.ViewResponsesController"/>
+
+<bean name="RemindersController" class="org.ird.immunizationreminder.web.controller.RemindersController"/>
+<bean name="ViewRemindersController" class="org.ird.immunizationreminder.web.controller.ViewRemindersController"/>
+<bean name="EditReminderController" class="org.ird.immunizationreminder.web.controller.EditReminderController">
+	<property name="sessionForm">
+		<value>true</value>
+	</property>
+	<property name="commandName">
+		<value>command</value>
+	</property>
+	<property name="commandClass">
+		<value>org.ird.immunizationreminder.datamodel.entities.Reminder</value>
+	</property>
+	<property name="formView">
+		<value>editReminder</value>
+	</property>
+</bean>
+<bean name="ViewReminderSmsRecordController" class="org.ird.immunizationreminder.web.controller.ViewReminderSmsRecordController"/>
+<bean name="ViewReminderSmsWindowController" class="org.ird.immunizationreminder.web.controller.ViewReminderSmsWindowController"/>
+
+<bean name="ChildrenController" class="org.ird.immunizationreminder.web.controller.ChildrenController"/>
+<bean name="AddChildController" class="org.ird.immunizationreminder.web.controller.AddChildController">
+	<property name="sessionForm">
+		<value>true</value>
+	</property>
+	<property name="commandName">
+		<value>command</value>
+	</property>
+	<property name="commandClass">
+		<value>org.ird.immunizationreminder.datamodel.entities.Child</value>
+	</property>
+	<property name="validator">
+		<ref bean="childValidator"/>
+	</property>
+	<property name="formView">
+		<value>addChild</value>
+	</property>
+	<property name="successView">
+		<value>addChildContinueVaccination.htm</value>
+	</property>
+</bean>
+	<bean id="childValidator" class="org.ird.immunizationreminder.web.validator.ChildValidator"/>
+
+<bean name="AddChildFlowVaccinationController" class="org.ird.immunizationreminder.web.controller.AddChildFlowVaccinationController">
+	<property name="sessionForm">
+		<value>true</value>
+	</property>
+	<property name="commandName">
+		<value>command</value>
+	</property>
+	<property name="commandClass">
+		<value>org.ird.immunizationreminder.datamodel.entities.Vaccination</value>
+	</property>
+	<property name="formView">
+		<value>addChildContinueVaccination</value>
+	</property>
+	<property name="successView">
+		<value>successView</value>
+	</property>
+</bean>
+<bean name="ViewChildrenController" class="org.ird.immunizationreminder.web.controller.ViewChildrenController"/>
+<bean name="ViewChildWindowController" class="org.ird.immunizationreminder.web.controller.ViewChildWindowController"/>
+<bean name="EditChildController" class="org.ird.immunizationreminder.web.controller.EditChildController">
+	<property name="sessionForm">
+		<value>true</value>
+	</property>
+	<property name="commandName">
+		<value>command</value>
+	</property>
+	<property name="commandClass">
+		<value>org.ird.immunizationreminder.datamodel.entities.Child</value>
+	</property>
+	<property name="validator">
+		<ref bean="childValidator"/>
+	</property>
+	<property name="formView">
+		<value>editChild</value>
+	</property>
+	<property name="successView">
+		<value>viewChildren.htm</value>
+	</property>
+</bean>
+<bean name="UploadDataController" class="org.ird.immunizationreminder.web.controller.UploadDataController"/>
+
+
+<bean name="UsersController" class="org.ird.immunizationreminder.web.controller.UsersController"/>
+<bean name="ViewUsersController" class="org.ird.immunizationreminder.web.controller.ViewUsersController"/>
+<bean name="EditUserController" class="org.ird.immunizationreminder.web.controller.EditUserController">
+	<property name="sessionForm">
+		<value>true</value>
+	</property>
+	<property name="commandName">
+		<value>command</value>
+	</property>
+	<property name="commandClass">
+		<value>org.ird.immunizationreminder.datamodel.entities.User</value>
+	</property>
+	<property name="validator">
+		<ref bean="editUserValidator"/>
+	</property>
+	<property name="formView">
+		<value>editUser</value>
+	</property>
+	<property name="successView">
+		<value>successView</value>
+	</property>
+</bean>
+	<bean id="editUserValidator" class="org.ird.immunizationreminder.web.validator.EditUserValidator"/>
+
+<bean name="AddUserController" class="org.ird.immunizationreminder.web.controller.AddUserController">
+	<property name="sessionForm">
+		<value>true</value>
+	</property>
+	<property name="commandName">
+		<value>command</value>
+	</property>
+	<property name="commandClass">
+		<value>org.ird.immunizationreminder.datamodel.entities.User</value>
+	</property>
+	<property name="validator">
+		<ref bean="addUserValidator"/>
+	</property>
+	<property name="formView">
+		<value>addUser</value>
+	</property>
+	<property name="successView">
+		<value>successView</value>
+	</property>
+</bean>
+	<bean id="addUserValidator" class="org.ird.immunizationreminder.web.validator.AddUserValidator"/>
+
+<bean name="ViewRolesController" class="org.ird.immunizationreminder.web.controller.ViewRolesController"/>
+<bean name="AddRoleController" class="org.ird.immunizationreminder.web.controller.AddRoleController">
+	<property name="sessionForm">
+		<value>true</value>
+	</property>
+	<property name="commandName">
+		<value>command</value>
+	</property>
+	<property name="commandClass">
+		<value>org.ird.immunizationreminder.datamodel.entities.Role</value>
+	</property>
+	<property name="validator">
+		<ref bean="addRoleValidator"/>
+	</property>
+	<property name="formView">
+		<value>addRole</value>
+	</property>
+	<property name="successView">
+		<value>successView</value>
+	</property>
+</bean>
+	<bean id="addRoleValidator" class="org.ird.immunizationreminder.web.validator.AddRoleValidator"/>
+<bean name="EditRoleController" class="org.ird.immunizationreminder.web.controller.EditRoleController">
+	<property name="sessionForm">
+		<value>true</value>
+	</property>
+	<property name="commandName">
+		<value>command</value>
+	</property>
+	<property name="commandClass">
+		<value>org.ird.immunizationreminder.datamodel.entities.Role</value>
+	</property>
+	<property name="validator">
+		<ref bean="addRoleValidator"/>
+	</property>
+	<property name="formView">
+		<value>editRole</value>
+	</property>
+	<property name="successView">
+		<value>successView</value>
+	</property>
+</bean>
+
+<bean name="ReportingController" class="org.ird.immunizationreminder.web.controller.ReportingController"/>
+<bean name="ViewIrSettingsController" class="org.ird.immunizationreminder.web.controller.ViewIrSettingsController"/>
+<bean name="HibernateStatisticsController" class="org.ird.immunizationreminder.web.controller.HibernateStatisticsController"/>
+
+<bean name="AnalyzeReminderController" class="org.ird.immunizationreminder.web.controller.AnalyzeReminderController"/>
+
+<bean name="ViewDetailedUploadReportController" class="org.ird.immunizationreminder.web.controller.ViewDetailedUploadReportController"/>
+
+<bean name="ViewCsvUploadReportController" class="org.ird.immunizationreminder.web.controller.ViewCsvUploadReportController"/>
+
+<bean name="ChangepwdController" class="org.ird.immunizationreminder.web.controller.ChangepwdController"/>
+
+
+
+<bean id="dwrController" class= "org.springframework.web.servlet.mvc.ServletWrappingController">
+  <property name="servletClass">
+    <value>org.directwebremoting.servlet.DwrServlet</value>
+  </property>
+  <property name="initParameters">
+    <props>
+      <prop key="debug">true</prop>
+    </props>
+  </property>
+</bean>
+<!-- sample for non user input simple forms -->
+<!--<bean name="MainpageController" class="ird.xoutTB.web.controller.MainpageController">
+	<property name="timesheetManager">
+		<ref bean="timesheetManager" />
+	</property>
+	<property name="applicationSecurityManager">
+		<ref bean="applicationSecurityManager" />
+	</property>
+	<property name="successView">
+		<value>timesheetlist</value>
+	</property>
+</bean>
+--><!-- for non user input simple forms -->
+<!--<bean name="MainpageController" class="ird.xoutTB.web.controller.MainpageController">
+	<property name="successView">
+		<value>timesheetlist</value>
+	</property>
+</bean>
+-->
+
+
+<!--
+   --><bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+        <property name="prefix" value="/jsp/"></property>
+        <property name="suffix" value=".jsp"></property>        
+    </bean>
+  
+
+</beans>

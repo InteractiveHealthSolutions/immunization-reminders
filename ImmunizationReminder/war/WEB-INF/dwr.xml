@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN"
+    "http://directwebremoting.org/schema/dwr20.dtd">
+
+<dwr>
+
+	<allow>
+		<create creator="new" javascript="JDate">
+	      <param name="class" value="java.util.Date"/>
+		</create>
+		
+		<convert match="java.lang.Exception" converter="exception">
+			<param name="exclude" value="stackTrace"/>
+		</convert>
+		<convert converter="enum" match="org.ird.immunizationreminder.datamodel.entities.Vaccine$UNIT_GAP" />
+		
+		<!--
+		<convert converter="bean" match="ird.xoutTB.web.controls.ChildGridRow">
+			<param name="include" value="cellNoLatest,childId,firstName"></param>
+		</convert>
+			
+		-->
+		<create creator="new" javascript="DWRVaccineService">
+			<param name="class" value="org.ird.immunizationreminder.web.dwr.DWRVaccineService" />
+			<include method="addVaccine"/>
+			<include method="addVaccine2"/>
+			<include method="hasPatientTakenVaccine"/>
+			<include method="calculateNextVaccinationDateFromPrev"/>
+			<include method="calculateMeasles2DateFromMeasles1"/>
+		</create>
+		<create creator="new" javascript="DWRIrSettingService">
+			<param name="class" value="org.ird.immunizationreminder.web.dwr.DWRIrSettingService" />
+			<include method="updateIrSetting"/>
+		</create>		
+		<create creator="new" javascript="DWRUserService">
+			<param name="class" value="org.ird.immunizationreminder.web.dwr.DWRUserService" />
+			<include method="changePassword"/>
+		</create>
+		<create creator="new" javascript="DWRCsvService">
+			<param name="class" value="org.ird.immunizationreminder.web.dwr.DWRCsvService" />
+			<include method="getCsvUploaded"/>
+		</create>	</allow>
+	
+	<signatures>
+		<![CDATA[
+
+			import java.util.Date;
+			import java.util.List;
+			import org.ird.immunizationreminder.datamodel.entities.Vaccine;
+
+		]]>
+	</signatures>
+  	
+</dwr>

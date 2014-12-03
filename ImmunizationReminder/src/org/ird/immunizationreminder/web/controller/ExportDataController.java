@@ -1,0 +1,22 @@
+package org.ird.immunizationreminder.web.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.ird.immunizationreminder.context.LoggedInUser;
+import org.ird.immunizationreminder.web.utils.UserSessionUtils;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+import org.springframework.web.servlet.view.RedirectView;
+
+public class ExportDataController  implements Controller{
+
+	public ModelAndView handleRequest(HttpServletRequest req,
+			HttpServletResponse resp) throws Exception {
+		LoggedInUser user=UserSessionUtils.getActiveUser(req);
+		if(user==null){
+			return new ModelAndView(new RedirectView("login.htm"));
+		}
+		return new ModelAndView("exportData");
+	}
+}
